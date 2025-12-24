@@ -41,6 +41,9 @@ if (empty($app) === true) {
 	$app = Flight::app();
 }
 
+
+/** @var string $ds */
+
 // This autoloads your code in the app directory so you don't have to require_once everything
 // You'll need to namespace your classes with "app\folder\" to include them properly
 $app->path(__DIR__ . $ds . '..' . $ds . '..');

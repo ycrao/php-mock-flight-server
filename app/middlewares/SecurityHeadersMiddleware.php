@@ -21,7 +21,7 @@ class SecurityHeadersMiddleware
 
 		// development mode to execute Tracy debug bar CSS
 		$tracyCssBypass = "'nonce-{$nonce}'";
-		if(Debugger::$showBar === true) {
+		if (Debugger::$showBar === true) {
 			$tracyCssBypass = ' \'unsafe-inline\'';
 		}
 

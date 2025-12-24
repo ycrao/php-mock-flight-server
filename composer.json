@@ -23,6 +23,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
+        "fakerphp/faker": "^1.24",
         "flightphp/core": "^3.0",
         "flightphp/runway": "^0.2 || ^1.1",
         "tracy/tracy": "^2.9"
@@ -30,6 +31,11 @@
     "config": {
         "process-timeout": 0,
         "sort-packages": true
+    },
+    "autoload": {
+      "psr-4": {
+        "app\\": "app/"
+      }
     },
     "scripts": {
         "start": "php -S localhost:8000 -t public",

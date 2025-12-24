@@ -1,7 +1,9 @@
 <?php
 
-use app\controllers\ApiExampleController;
+use app\controllers\admin\AuthController;
+use app\controllers\admin\ArticleController;
 use app\middlewares\SecurityHeadersMiddleware;
+use app\middlewares\AdminUserAuthMiddleware;
 use flight\Engine;
 use flight\net\Router;
 
@@ -14,9 +16,12 @@ use flight\net\Router;
 $router->group('', function(Router $router) use ($app) {
 
 	$router->get('/', function() use ($app) {
-		$app->render('welcome', [ 'message' => 'You are gonna do great things!' ]);
+		$app->render('welcome', [
+            'message' => 'Welcome to the FlightPHP mock server!',
+        ]);
 	});
 
+    /*
 	$router->get('/hello-world/@name', function($name) {
 		echo '<h1>Hello world! Oh hey '.$name.'!</h1>';
 	});
@@ -26,5 +31,21 @@ $router->group('', function(Router $router) use ($app) {
 		$router->get('/users/@id:[0-9]', [ ApiExampleController::class, 'getUser' ]);
 		$router->post('/users/@id:[0-9]', [ ApiExampleController::class, 'updateUser' ]);
 	});
+    */
 	
 }, [ SecurityHeadersMiddleware::class ]);
+
+// Admin API routes
+$router->group('/admin-api', function(Router $router) use ($app) {
+
+    $router->group('/auth', function(Router $router) use ($app) {
+        $router->post('/login', [AuthController::class, 'postLogin']);
+    });
+
+    $router->group('/content', function(Router $router) use ($app) {
+        $router->group('/article', function (Router $router) use ($app) {
+            $router->get('/', [ArticleController::class, 'index']);
+        });
+    }, [ AdminUserAuthMiddleware::class ]);
+
+});
