@@ -31,4 +31,13 @@ class MockUser
     {
         $this->password = md5($password);
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => Helper::hideEmail($this->email),
+        ];
+    }
 }

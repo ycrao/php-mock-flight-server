@@ -3,6 +3,7 @@
 use app\controllers\admin\AuthController;
 use app\controllers\admin\ArticleController;
 use app\controllers\admin\CategoryController;
+use app\controllers\admin\UserController;
 use app\middlewares\SecurityHeadersMiddleware;
 use app\middlewares\AdminUserAuthMiddleware;
 use flight\Engine;
@@ -39,11 +40,31 @@ $router->group('', function(Router $router) use ($app) {
 // Admin API routes
 $router->group('/admin-api', function(Router $router) use ($app) {
 
-    $router->group('/auth', function(Router $router) use ($app) {
-        $router->post('/login', [AuthController::class, 'postLogin']);
+    // user module micro-service routes
+    $router->group('/ms-user', function  (Router $router) use ($app) {
+
+        $router->post('/auth/login', [AuthController::class, 'postLogin']);
+
+        $router->group('/user', function (Router $router) use ($app) {
+            $router->get('/', [UserController::class, 'index']);
+            // current user info
+            $router->get('/me', [UserController::class, 'me']);
+            // Create a new user
+            $router->post('/', [UserController::class, 'store']);
+            // Show a user by id
+            $router->get('/@id:[1-9]', [UserController::class, 'show']);
+            // Update a user by id (using put or post method)
+            $router->put('/@id:[1-9]', [UserController::class, 'update']);
+            $router->post('/@id:[1-9]', [UserController::class, 'update']);
+
+            // Delete a user by id
+            $router->delete('/@id:[1-9]', [UserController::class, 'destroy']);
+        }, [ AdminUserAuthMiddleware::class ]);
+
     });
 
-    $router->group('/content', function(Router $router) use ($app) {
+    // content module micro-service routes
+    $router->group('/ms-content', function(Router $router) use ($app) {
 
         $router->group('/article', function (Router $router) use ($app) {
             $router->get('/', [ArticleController::class, 'index']);
@@ -72,6 +93,7 @@ $router->group('/admin-api', function(Router $router) use ($app) {
             // Delete an article by id
             $router->delete('/@id:[0-9]', [CategoryController::class, 'destroy']);
         });
+
     }, [ AdminUserAuthMiddleware::class ]);
 
 });
