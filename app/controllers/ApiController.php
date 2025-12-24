@@ -19,7 +19,7 @@ class ApiController
         if ($code >= 200 && $code < 300) {
             $httpCode = $code;
         } else if ($code >= 400 && $code < 500) {
-            if (in_array($code, [401, 403])) {
+            if (in_array($code, [401, 403, 404])) {
                 $httpCode = $code;
             } else {
                 $httpCode = 200;
@@ -65,6 +65,11 @@ class ApiController
     public function return403($message = 'forbidden!')
     {
         $this->respJson(null, 403, $message);
+    }
+
+    public function return404($message = 'not found!')
+    {
+        $this->respJson(null, 404, $message);
     }
 
     public function return422($data = null, $message = 'unprocessable entity!')

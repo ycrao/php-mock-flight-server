@@ -2,6 +2,7 @@
 
 use app\controllers\admin\AuthController;
 use app\controllers\admin\ArticleController;
+use app\controllers\admin\CategoryController;
 use app\middlewares\SecurityHeadersMiddleware;
 use app\middlewares\AdminUserAuthMiddleware;
 use flight\Engine;
@@ -56,6 +57,20 @@ $router->group('/admin-api', function(Router $router) use ($app) {
 
             // Delete an article by id
             $router->delete('/@id:[0-9]', [ArticleController::class, 'destroy']);
+        });
+
+        $router->group('/category', function (Router $router) use ($app) {
+            $router->get('/all', [CategoryController::class, 'all']);
+            // Create a new category
+            $router->post('/', [CategoryController::class, 'store']);
+            // Show a category by id
+            $router->get('/@id:[1-9]', [CategoryController::class, 'show']);
+            // Update a category by id (using put or post method)
+            $router->put('/@id:[1-9]', [CategoryController::class, 'update']);
+            $router->post('/@id:[1-9]', [CategoryController::class, 'update']);
+
+            // Delete an article by id
+            $router->delete('/@id:[0-9]', [CategoryController::class, 'destroy']);
         });
     }, [ AdminUserAuthMiddleware::class ]);
 

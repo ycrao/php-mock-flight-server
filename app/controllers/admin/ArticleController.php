@@ -51,7 +51,7 @@ class ArticleController extends ApiController
         ]);
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $article = $this->generateMockArticle();
         $article['id'] = $id;
@@ -72,7 +72,7 @@ class ArticleController extends ApiController
         // $this->return201($this->generateMockArticle());
     }
 
-    public function update($id)
+    public function update(int$id)
     {
         // Get JSON input
         $data = $this->app->request()->data;
@@ -89,7 +89,7 @@ class ArticleController extends ApiController
         $this->return200($article);
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $this->return200(true);
     }
