@@ -9,6 +9,8 @@ use Faker\Factory;
 class ArticleController extends ApiController
 {
     private $faker;
+
+
     public function __construct($app)
     {
         parent::__construct($app);
@@ -24,7 +26,7 @@ class ArticleController extends ApiController
         // 模拟状态筛选（该参数起作用）
         $status = $queryParams['status'] ?? null;
         if ($status !== null && !in_array($status, ['draft', 'published', 'archived'])) {
-            $this->return400(null, 'Bad request!');
+            $this->return400('Bad request!');
             return;
         }
         // 模拟搜索关键词（该参数不起作用）
@@ -33,7 +35,7 @@ class ArticleController extends ApiController
         // 模拟分类筛选（该参数起作用）
         $categoryId = $queryParams['category_id'] ?? null;
         if ($categoryId !== null && !in_array($categoryId, array_keys($this->getStaticCategories()))) {
-            $this->return400(null, 'Bad request!');
+            $this->return400('Bad request!');
             return;
         }
         $mockTotal = 86;
@@ -47,6 +49,49 @@ class ArticleController extends ApiController
             'current_page' => $page,
             'items' => $mockArticles,
         ]);
+    }
+
+    public function show($id)
+    {
+        $article = $this->generateMockArticle();
+        $article['id'] = $id;
+        $this->return200($article);
+    }
+
+    public function store()
+    {
+        // Get JSON input
+        $data = $this->app->request()->data;
+        // 这里我们初步校验 title 和 content 是否为空
+        if (empty($data['title']) || empty($data['content'])) {
+            $this->return422(null, 'title and content are required!');
+            return;
+        }
+        $this->return200($this->generateMockArticle());
+        // 某些框架可能以 201 HTTP code 返回
+        // $this->return201($this->generateMockArticle());
+    }
+
+    public function update($id)
+    {
+        // Get JSON input
+        $data = $this->app->request()->data;
+        // 这里我们初步校验 title 和 content 是否为空
+        if (empty($data['title']) || empty($data['content'])) {
+            $this->return422(null, 'title and content are required!');
+            return;
+        }
+
+        $article = $this->generateMockArticle();
+        $article['id'] = $id;
+        $article['title'] = $data['title'];
+        $article['content'] = $data['content'];
+        $this->return200($article);
+    }
+
+    public function destroy($id)
+    {
+        $this->return200(true);
     }
 
     private function getStaticCategories(): array

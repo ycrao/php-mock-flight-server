@@ -16,7 +16,7 @@ class AuthController extends ApiController
 
         // Validate required fields
         if (!isset($input['email']) || !isset($input['password'])) {
-            $this->return400(null, 'Bad request!');
+            $this->return400('Bad request!');
             return;
         }
 

@@ -43,8 +43,19 @@ $router->group('/admin-api', function(Router $router) use ($app) {
     });
 
     $router->group('/content', function(Router $router) use ($app) {
+
         $router->group('/article', function (Router $router) use ($app) {
             $router->get('/', [ArticleController::class, 'index']);
+            // Create a new article
+            $router->post('/', [ArticleController::class, 'store']);
+            // Show an article by id
+            $router->get('/@id:[0-9]{1,3}', [ArticleController::class, 'show']);
+            // Update an article by id (using put or post method)
+            $router->put('/@id:[0-9]{1,3}', [ArticleController::class, 'update']);
+            $router->post('/@id:[0-9]{1,3}', [ArticleController::class, 'update']);
+
+            // Delete an article by id
+            $router->delete('/@id:[0-9]', [ArticleController::class, 'destroy']);
         });
     }, [ AdminUserAuthMiddleware::class ]);
 
