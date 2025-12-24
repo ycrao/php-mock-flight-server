@@ -4,6 +4,7 @@ use app\controllers\admin\AuthController;
 use app\controllers\admin\ArticleController;
 use app\controllers\admin\CategoryController;
 use app\controllers\admin\UserController;
+use app\middlewares\CorsMiddleware;
 use app\middlewares\SecurityHeadersMiddleware;
 use app\middlewares\AdminUserAuthMiddleware;
 use flight\Engine;
@@ -96,4 +97,4 @@ $router->group('/admin-api', function(Router $router) use ($app) {
 
     }, [ AdminUserAuthMiddleware::class ]);
 
-});
+}, [ CorsMiddleware::class ]);

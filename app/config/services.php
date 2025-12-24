@@ -61,6 +61,9 @@ use Tracy\Debugger;
  *
  * For more options, see https://tracy.nette.org/en/configuration
  **********************************************/
+
+/** @var string $ds */
+
 Debugger::enable(); // Auto-detects environment
 // Debugger::enable(Debugger::Development); // Explicitly set environment
 // Debugger::enable('23.75.345.200'); // Restrict debug bar to specific IPs
