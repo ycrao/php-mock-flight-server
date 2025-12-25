@@ -4,7 +4,7 @@ use app\controllers\admin\AuthController;
 use app\controllers\admin\ArticleController;
 use app\controllers\admin\CategoryController;
 use app\controllers\admin\UserController;
-use app\middlewares\CorsMiddleware;
+use app\utils\CorsUtil;
 use app\middlewares\SecurityHeadersMiddleware;
 use app\middlewares\AdminUserAuthMiddleware;
 use flight\Engine;
@@ -14,6 +14,7 @@ use flight\net\Router;
  * @var Router $router 
  * @var Engine $app
  */
+$corsUtil = new CorsUtil();
 
 // This wraps all routes in the group with the SecurityHeadersMiddleware
 $router->group('', function(Router $router) use ($app) {
@@ -97,4 +98,7 @@ $router->group('/admin-api', function(Router $router) use ($app) {
 
     }, [ AdminUserAuthMiddleware::class ]);
 
-}, [ CorsMiddleware::class ]);
+});
+
+// CORS preflight request handler
+$app->before('start', [ $corsUtil, 'setUp' ]);

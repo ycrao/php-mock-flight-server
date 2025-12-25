@@ -6,3 +6,4 @@ composer.lock
 .runway-creds.json
 .idea/
 tmp/
+*.log

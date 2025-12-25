@@ -1,31 +1,22 @@
 <?php
 
-namespace app\middlewares;
+namespace app\utils;
 
-use flight\Engine;
-
-class CorsMiddleware
+class CorsUtil
 {
-    protected Engine $app;
-
-    public function __construct(Engine $app)
+    public function setUp(): void
     {
-        $this->app = $app;
-    }
-
-    public function before(array $params): void
-    {
-        $request = $this->app->request();
-        $response = $this->app->response();
+        $request = \Flight::request();
+        $response = \Flight::response();
 
         // Allow from any origin
         if ($request->getVar('HTTP_ORIGIN') !== '') {
-            $response->header("Access-Control-Allow-Origin", "*");
+            $this->allowOrigins();
             $response->header('Access-Control-Allow-Credentials', 'true');
-            $response->header('Access-Control-Max-Age', '86400');
+            $response->header('Access-Control-Max-Age', '1728000');
         }
 
-        if ($request->method === 'OPTIONS') {
+        if (strtoupper($request->method) === 'OPTIONS') {
             if ($request->getVar('HTTP_ACCESS_CONTROL_REQUEST_METHOD') !== '') {
                 $response->header(
                     'Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD'
@@ -37,10 +28,23 @@ class CorsMiddleware
                     $request->getVar('HTTP_ACCESS_CONTROL_REQUEST_HEADERS')
                 );
             }
-
-            $response->status(204);
+            $response->status(200);
             $response->send();
             exit;
+        }
+    }
+
+    private function allowOrigins(): void
+    {
+        $allowed = [
+            'http://localhost:5173',
+        ];
+
+        $request = \Flight::request();
+
+        if (in_array($request->getVar('HTTP_ORIGIN'), $allowed, true) === true) {
+            $response = \Flight::response();
+            $response->header("Access-Control-Allow-Origin", $request->getVar('HTTP_ORIGIN'));
         }
     }
 }
