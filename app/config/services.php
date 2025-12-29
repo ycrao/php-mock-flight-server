@@ -63,6 +63,7 @@ use Tracy\Debugger;
  **********************************************/
 
 /** @var string $ds */
+$ds = DIRECTORY_SEPARATOR;
 
 Debugger::enable(); // Auto-detects environment
 // Debugger::enable(Debugger::Development); // Explicitly set environment
