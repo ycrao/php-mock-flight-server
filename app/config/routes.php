@@ -79,7 +79,7 @@ $router->group('/admin-api', function(Router $router) use ($app) {
             $router->post('/@id:[0-9]{1,3}', [ArticleController::class, 'update']);
 
             // Delete an article by id
-            $router->delete('/@id:[0-9]', [ArticleController::class, 'destroy']);
+            $router->delete('/@id:[0-9]{1,3}', [ArticleController::class, 'destroy']);
         });
 
         $router->group('/category', function (Router $router) use ($app) {
@@ -93,7 +93,7 @@ $router->group('/admin-api', function(Router $router) use ($app) {
             $router->post('/@id:[1-9]', [CategoryController::class, 'update']);
 
             // Delete an article by id
-            $router->delete('/@id:[0-9]', [CategoryController::class, 'destroy']);
+            $router->delete('/@id:[1-9]', [CategoryController::class, 'destroy']);
         });
 
     }, [ AdminUserAuthMiddleware::class ]);

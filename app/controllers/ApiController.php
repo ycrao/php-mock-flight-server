@@ -13,7 +13,7 @@ class ApiController
 	}
 
 
-    private function respJson(?array $data, $code = 200, $message = 'ok')
+    private function respJson($data, $code = 200, $message = 'ok')
     {
         // 只处理 2xx 与 4xx 之类的 code， 其它 code 一律返回 500 httpCode
         if ($code >= 200 && $code < 300) {
