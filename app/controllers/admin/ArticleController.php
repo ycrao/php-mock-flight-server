@@ -40,8 +40,10 @@ class ArticleController extends ApiController
         }
         $mockTotal = 86;
         $mockArticles = [];
+        $startId = $this->faker->numberBetween(1, 1000);
         for ($i = 0; $i < $perPage; $i++) {
-            $mockArticles[] = $this->generateMockArticle($status, $categoryId, $keyword);
+            // fix may be got two same id
+            $mockArticles[] = array_merge($this->generateMockArticle($status, $categoryId, $keyword), ['id' => $startId + $i + 1]);
         }
         $this->return200([
             'total' => $mockTotal,

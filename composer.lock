@@ -219,16 +219,16 @@
         },
         {
             "name": "flightphp/runway",
-            "version": "v1.2.4",
+            "version": "v1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/flightphp/runway.git",
-                "reference": "7f77dd0ad9377208184fbfdc6fb369011f712051"
+                "reference": "9864416412583c77bc09ebec4a6bf85aa897d0d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flightphp/runway/zipball/7f77dd0ad9377208184fbfdc6fb369011f712051",
-                "reference": "7f77dd0ad9377208184fbfdc6fb369011f712051",
+                "url": "https://api.github.com/repos/flightphp/runway/zipball/9864416412583c77bc09ebec4a6bf85aa897d0d7",
+                "reference": "9864416412583c77bc09ebec4a6bf85aa897d0d7",
                 "shasum": ""
             },
             "require": {
@@ -265,9 +265,9 @@
             "description": "Console app for the Flight PHP Framework.",
             "support": {
                 "issues": "https://github.com/flightphp/runway/issues",
-                "source": "https://github.com/flightphp/runway/tree/v1.2.4"
+                "source": "https://github.com/flightphp/runway/tree/v1.2.5"
             },
-            "time": "2025-12-27T15:25:36+00:00"
+            "time": "2025-12-29T14:44:26+00:00"
         },
         {
             "name": "nette/php-generator",
