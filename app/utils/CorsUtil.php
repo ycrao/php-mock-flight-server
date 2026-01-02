@@ -48,6 +48,7 @@ class CorsUtil
             $response->header('Access-Control-Allow-Origin', $request->getVar('HTTP_ORIGIN'));
         }
         */
+        $response = \Flight::response();
         $response->header('Access-Control-Allow-Origin', $request->getVar('HTTP_ORIGIN'));
     }
 }

@@ -62,7 +62,6 @@ use Tracy\Debugger;
  * For more options, see https://tracy.nette.org/en/configuration
  **********************************************/
 
-/** @var string $ds */
 $ds = DIRECTORY_SEPARATOR;
 
 Debugger::enable(); // Auto-detects environment

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace flight\commands;
+namespace app\commands;
 
+use flight\commands\AbstractBaseCommand;
 use flight\database\PdoWrapper;
 
 class SampleDatabaseCommand extends AbstractBaseCommand
