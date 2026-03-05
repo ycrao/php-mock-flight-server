@@ -29,7 +29,7 @@ composer create-project flightphp/skeleton php-mock-flight-server
 ```plaintext
 - 登录 POST http://localhost:8000/admin-api/ms-user/auth/login
 - 用户列表 GET http://localhost:8000/admin-api/ms-user/user
-- 当前登录用户信息 GET http://localhost:8000/admin-api/ms-user/user/me
+- 当前登录用户信息 GET http://localhost:8000/admin-api/ms-user/me
 - 文章列表 GET http://localhost:8000/admin-api/ms-content/article
 - 获取特定 id 文章 GET http://localhost:8000/admin-api/ms-content/article/{id}
 - 所有分类 GET http://localhost:8000/admin-api/ms-content/category/all
